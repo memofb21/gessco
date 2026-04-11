@@ -5,9 +5,10 @@
  * Copyright 2011-2020 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
-:root {
-  --color2: #043a30;
-  --color3: #ffb32f;
+  :root {
+  --color1: #e7f1e8;
+  --color2: #000000;
+  --color3: #e1aa4b;
   --blue: #007bff;
   --indigo: #6610f2;
   --purple: #6f42c1;
@@ -22,7 +23,7 @@
   --gray: #6c757d;
   --gray-dark: #343a40;
   --primary: #E47A2E;
-  --secondary: #EDF5F7;
+  --secondary: #f2f7ed;
   --success: #28a745;
   --info: #17a2b8;
   --warning: #ffc107;
@@ -371,7 +372,9 @@ legend {
     font-size: calc(1.275rem + 0.3vw) ;
   }
 }
-
+.nos1 {
+  margin-bottom: 3vh;
+}
 progress {
   vertical-align: baseline;
 }
@@ -509,6 +512,7 @@ h6, .h6 {
 }
 
 .display-4 {
+  margin-top: 1rem;
   font-size: 3.5rem;
   font-weight: 300;
   line-height: 1.2;
@@ -2713,17 +2717,17 @@ fieldset:disabled a.btn {
 
 .btn-outline-primary {
   color: var(--color2);
-  border-color: var(--color2);
+  border-color: none;
 }
 
 .btn-outline-primary:hover {
-  color: #fff;
-  background-color: var(--color2);
-  border-color: var(--color2);
+  color: var(--color3);
+  background-color: none;
+  border-color: none;
 }
 
 .btn-outline-primary:focus, .btn-outline-primary.focus {
-  box-shadow: 0 0 0 0.2rem rgba(228, 122, 46, 0.5);
+  box-shadow: none;
 }
 
 .btn-outline-primary.disabled, .btn-outline-primary:disabled {
@@ -2734,13 +2738,13 @@ fieldset:disabled a.btn {
 .btn-outline-primary:not(:disabled):not(.disabled):active, .btn-outline-primary:not(:disabled):not(.disabled).active,
 .show > .btn-outline-primary.dropdown-toggle {
   color: #fff;
-  background-color: var(--color2);
-  border-color: var(--color2);
+  background-color: none;
+  border-color: none;
 }
 
 .btn-outline-primary:not(:disabled):not(.disabled):active:focus, .btn-outline-primary:not(:disabled):not(.disabled).active:focus,
 .show > .btn-outline-primary.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(228, 122, 46, 0.5);
+  box-shadow: none;
 }
 
 .btn-outline-secondary {
@@ -2755,7 +2759,7 @@ fieldset:disabled a.btn {
 }
 
 .btn-outline-secondary:focus, .btn-outline-secondary.focus {
-  box-shadow: 0 0 0 0.2rem rgba(237, 245, 247, 0.5);
+  box-shadow: none;
 }
 
 .btn-outline-secondary.disabled, .btn-outline-secondary:disabled {
@@ -2772,7 +2776,7 @@ fieldset:disabled a.btn {
 
 .btn-outline-secondary:not(:disabled):not(.disabled):active:focus, .btn-outline-secondary:not(:disabled):not(.disabled).active:focus,
 .show > .btn-outline-secondary.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(237, 245, 247, 0.5);
+  box-shadow: none;
 }
 
 .btn-outline-success {
@@ -2787,7 +2791,7 @@ fieldset:disabled a.btn {
 }
 
 .btn-outline-success:focus, .btn-outline-success.focus {
-  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);
+  box-shadow: none;
 }
 
 .btn-outline-success.disabled, .btn-outline-success:disabled {
@@ -2804,7 +2808,7 @@ fieldset:disabled a.btn {
 
 .btn-outline-success:not(:disabled):not(.disabled):active:focus, .btn-outline-success:not(:disabled):not(.disabled).active:focus,
 .show > .btn-outline-success.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);
+  box-shadow: none;
 }
 
 .btn-outline-info {
@@ -2851,7 +2855,7 @@ fieldset:disabled a.btn {
 }
 
 .btn-outline-warning:focus, .btn-outline-warning.focus {
-  box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.5);
+  box-shadow: none;
 }
 
 .btn-outline-warning.disabled, .btn-outline-warning:disabled {
@@ -2868,7 +2872,7 @@ fieldset:disabled a.btn {
 
 .btn-outline-warning:not(:disabled):not(.disabled):active:focus, .btn-outline-warning:not(:disabled):not(.disabled).active:focus,
 .show > .btn-outline-warning.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.5);
+  box-shadow: none;
 }
 
 .btn-outline-danger {
@@ -2958,8 +2962,8 @@ fieldset:disabled a.btn {
 .btn-outline-dark:not(:disabled):not(.disabled):active, .btn-outline-dark:not(:disabled):not(.disabled).active,
 .show > .btn-outline-dark.dropdown-toggle {
   color: #fff;
-  background-color: var(--color2);
-  border-color: var(--color2);
+  background-color: none;
+  border-color: none;
 }
 
 .btn-outline-dark:not(:disabled):not(.disabled):active:focus, .btn-outline-dark:not(:disabled):not(.disabled).active:focus,
@@ -6155,7 +6159,7 @@ button.bg-primary:focus {
 }
 
 .bg-secondary {
-  background-color: #EDF5F7 !important;
+  background-color: var(--color1) !important;
 }
 
 a.bg-secondary:hover, a.bg-secondary:focus,
