@@ -9804,7 +9804,7 @@ a.text-dark:hover, a.text-dark:focus {
   align-items: center;
   justify-content: center;
   color: var(--color3);
-  background: #FFFFFF;
+  background: none;
   font-size: 30px;
 }
 
