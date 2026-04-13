@@ -9,7 +9,7 @@
   --color1: #e7f1e8;
   --color2: #000000;
   --color3: #e1aa4b;
-  --color4_lineas: #ffeec0;
+  --color4_lineas: #fff8c1;
   --blue: #007bff;
   --indigo: #6610f2;
   --purple: #6f42c1;
@@ -9315,18 +9315,27 @@ button.bg-dark:focus {
   font-style: italic !important;
 }
 .text-gradient {
+
+  /* color inicial mientras espera */
+  color:white;
+
     padding:10px;
     color:transparent;
     background:linear-gradient(
         90deg,
+        white, 
         var(--color4_lineas),
-        white,
-        var(--color4_lineas)
+        white
     );
-    background-size:300% 300%;
+    background-size:600%;
     background-clip:text;
     -webkit-background-clip:text;
     animation:gradientMove 6s linear infinite;
+    /* retraso */
+    animation-delay:3s;
+    
+    /* mantiene estado inicial antes de iniciar */
+    animation-fill-mode:forwards;
 }
 
 @keyframes gradientMove{
