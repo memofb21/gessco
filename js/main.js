@@ -31,7 +31,7 @@
                 onComplete: () => console.log("Animación completada")
             }, "-=.85")
             .from(titulo, {
-                y: 90,
+                y: window.innerWidth < 768 ? 40 : 90,
                 duration: 1,
                 ease: "power2.Out",
                 stagger: 0, // Pequeño retraso entre animaciones
