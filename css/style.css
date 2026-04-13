@@ -9,6 +9,7 @@
   --color1: #e7f1e8;
   --color2: #000000;
   --color3: #e1aa4b;
+  --color4_lineas: #ffeec0;
   --blue: #007bff;
   --indigo: #6610f2;
   --purple: #6f42c1;
@@ -6301,7 +6302,7 @@ button.bg-dark:focus {
 }
 
 .border-light {
-  border-color: #FFFFFF !important;
+  border-color: var(--color4_lineas) !important;
 }
 
 .border-dark {
@@ -9313,7 +9314,35 @@ button.bg-dark:focus {
 .font-italic {
   font-style: italic !important;
 }
+.text-gradient {
+    padding:10px;
+    color:transparent;
+    background:linear-gradient(
+        90deg,
+        var(--color4_lineas),
+        white,
+        var(--color4_lineas)
+    );
+    background-size:300% 300%;
+    background-clip:text;
+    -webkit-background-clip:text;
+    animation:gradientMove 6s linear infinite;
+}
 
+@keyframes gradientMove{
+    0%{background-position:0% 50%;}
+    100%{background-position:200% 50%;}
+}
+
+@keyframes color {
+    from {
+        background-position: 0% 50%;
+    }
+
+    to {
+        background-position: 100% 50%;
+    }
+}
 .text-white {
   color: #fff !important;
 }
@@ -9817,3 +9846,4 @@ a.text-dark:hover, a.text-dark:focus {
     border-right: none !important;
   }
 }
+
