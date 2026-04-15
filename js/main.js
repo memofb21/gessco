@@ -1,46 +1,42 @@
 (function ($) {
-    "use strict";
-    // Esperar a que jQuery esté listo
-    $(document).ready(function() {
-        console.log("jQuery está listo");
-        
-        // GSAP Animación al cargar la página
-        const titulo = document.querySelectorAll(".titulo-animado");
-        const descripcion = document.querySelectorAll(".descripcion-animada");
-        const items = document.querySelectorAll(".carousel-item");
-        let tl = gsap.timeline();
-        console.log("Elementos items encontrados:", items.length);
-        
-        if (titulo.length > 0) {
-            console.log("Aplicando animación GSAP a los títulos");
-            tl.from(titulo, {
-                opacity: 0,
-                duration: 1.7,
-                ease: "power2.Out",
-                onComplete: () => console.log("Animación completada")
-            })
-            .fromTo(".overlayNegro",
-            { opacity: 1,},
-            { opacity: 0, duration: 1, ease: "power1.out" }
-            )
-            .from(descripcion, {
-                opacity: 0,
-                duration: 1,
-                ease: "power3.InOut",
-                stagger: 0.5,
-                onComplete: () => console.log("Animación completada")
-            }, "-=.85")
-            .from(titulo, {
-                y: window.innerWidth < 768 ? 60 : 90,
-                duration: 1,
-                ease: "power2.Out",
-                stagger: 0, // Pequeño retraso entre animaciones
-                onComplete: () => console.log("Animación completada")
-            }, "<");
-        } else {
-            console.warn("No se encontraron elementos con la clase 'titulo-animado'");
-        }
-    });
+    $(window).on("load", function () {
+        gsap.set([".titulo-animado", ".descripcion-animada"], {
+  visibility: "visible"
+});
+    const titulo = document.querySelectorAll(".titulo-animado");
+    const descripcion = document.querySelectorAll(".descripcion-animada");
+
+    let tl = gsap.timeline();
+
+    // 🔥 fuerza estado inicial SIN flash
+    gsap.set(titulo, { opacity: 0, y: 80, visibility: "visible" });
+    gsap.set(descripcion, { opacity: 0, y: 20, visibility: "visible" });
+
+    tl.to(titulo, {
+        opacity: 1,
+        duration: 0.8,
+        ease: "power2.Out"
+    })
+    .to(titulo, {
+        y: 0,
+        duration: 1.2,
+        ease: "power2.Out",
+        delay: 0.4
+    })
+    .to(".overlayNegro", {
+        opacity: 0,
+        duration: 1,
+        ease: "power1.out"
+    }, "-=1.2")
+
+    .to(descripcion, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "power3.inOut",
+        stagger: 0.5
+    }, "-=0.2");
+});
 
     
 
