@@ -1,42 +1,64 @@
 (function ($) {
-    $(window).on("load", function () {
-        gsap.set([".titulo-animado", ".descripcion-animada"], {
-  visibility: "visible"
-});
+    $(document).ready(function () {
+
+    const loader = document.getElementById("loader");
+    const contenido = document.getElementById("contenido");
+
+    document.body.classList.add("no-scroll");
+
+    setTimeout(() => {
+
+        loader.style.opacity = "0";
+
+        setTimeout(() => {
+
+            loader.style.display = "none";
+            contenido.style.opacity = "1";
+            document.body.classList.remove("no-scroll");
+
+            iniciarAnimaciones(); // 👈 SOLO AQUÍ
+
+        }, 600);
+
+    }, 5000);
+
+    });
+
+
+
+    function iniciarAnimaciones() {
+
     const titulo = document.querySelectorAll(".titulo-animado");
     const descripcion = document.querySelectorAll(".descripcion-animada");
 
-    let tl = gsap.timeline();
-
-    // 🔥 fuerza estado inicial SIN flash
     gsap.set(titulo, { opacity: 0, y: 80, visibility: "visible" });
     gsap.set(descripcion, { opacity: 0, y: 20, visibility: "visible" });
 
-    tl.to(titulo, {
-        opacity: 1,
-        duration: 0.8,
-        ease: "power2.Out"
-    })
-    .to(titulo, {
-        y: 0,
-        duration: 1.2,
-        ease: "power2.Out",
-        delay: 0.4
-    })
-    .to(".overlayNegro", {
-        opacity: 0,
-        duration: 1,
-        ease: "power1.out"
-    }, "-=1.2")
+    gsap.timeline()
+        .to(titulo, {
+            opacity: 1,
+            duration: 0.8,
+            ease: "power2.out"
+        })
+        .to(titulo, {
+            y: 0,
+            duration: 1.2,
+            ease: "power2.out"
+        })
+        
+        .to(".overlayNegro", {
+            opacity: 0,
+            duration: 1,
+            ease: "power1.out"
+        }, "-=1.2")
+        .to(descripcion, {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: "power3.inOut"
+        }, "-=0.5");
+}
 
-    .to(descripcion, {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: "power3.inOut",
-        stagger: 0.5
-    }, "-=0.2");
-});
 
     
 
