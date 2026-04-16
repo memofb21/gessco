@@ -80,7 +80,7 @@
                 start:"top top",
                 end:"+=120%",
                 scrub:1,
-                pin:true,
+                pin: esTelefono ? false : true,  // 👈 AQUÍ EL CAMBIO
                 anticipatePin:1,
             }
         });
