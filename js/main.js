@@ -1,70 +1,113 @@
 (function ($) {
     $(document).ready(function () {
+        const loader = document.getElementById("loader");
+        const contenido = document.getElementById("contenido");
 
-    const loader = document.getElementById("loader");
-    const contenido = document.getElementById("contenido");
-
-    document.body.classList.add("no-scroll");
-
-    setTimeout(() => {
-
-        loader.style.opacity = "0";
+        document.body.classList.add("no-scroll");
 
         setTimeout(() => {
+            loader.style.opacity = "0";
 
-            loader.style.display = "none";
-            contenido.style.opacity = "1";
-            document.body.classList.remove("no-scroll");
+            setTimeout(() => {
+                loader.style.display = "none";
+                contenido.style.opacity = "1";
+                document.body.classList.remove("no-scroll");
 
-            iniciarAnimaciones(); // 👈 SOLO AQUÍ
-
-        }, 600);
-
-    }, 5000);
-
+                iniciarAnimaciones();
+                iniciarScrollStory();
+            }, 600);
+        }, 5000);
     });
 
 
 
-    function iniciarAnimaciones() {
+            function iniciarAnimaciones() {
+                const titulo = document.querySelectorAll(".titulo-animado");
+                const descripcion = document.querySelectorAll(".descripcion-animada");
 
-    const titulo = document.querySelectorAll(".titulo-animado");
-    const descripcion = document.querySelectorAll(".descripcion-animada");
+                gsap.set(titulo, { opacity: 0, y: 80, visibility: "visible" });
+                gsap.set(descripcion, { opacity: 0, y: 80 });
 
-    gsap.set(titulo, { opacity: 0, y: 80, visibility: "visible" });
-    gsap.set(descripcion, { opacity: 0, y: 20, visibility: "visible" });
+                const intro = gsap.timeline()
+                    .to(titulo, {
+                        opacity: 1,
+                        duration: 0.8,
+                        ease: "power2.out"
+                    })
+                    .to(titulo, {
+                        y: 0,
+                        duration: 1.2,
+                        ease: "power2.out"
+                    })
+                    .to(
+                        ".overlayNegro",
+                        {
+                            opacity: 0,
+                            duration: 1,
+                            ease: "power1.out"
+                        },
+                        "-=1.2"
+                    )
+                    .to(
+                        descripcion,
+                        {
+                            opacity: 0,
+                            duration: 1.5,
+                            ease: "power3.inOut"
+                        },
+                        "-=3.1"
+                    )
+                    .to(descripcion, {
+                        opacity: 1,
+                        duration: 1,
+                        ease: "power2.inOut"
+                    }, "-=0.5")
+            }
 
-    gsap.timeline()
-        .to(titulo, {
-            opacity: 1,
-            duration: 0.8,
-            ease: "power2.out"
-        })
-        .to(titulo, {
-            y: 0,
-            duration: 1.2,
-            ease: "power2.out"
-        })
-        
-        .to(".overlayNegro", {
-            opacity: 0,
-            duration: 1,
-            ease: "power1.out"
-        }, "-=1.2")
-        .to(descripcion, {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            ease: "power3.inOut"
-        }, "-=0.5");
-}
 
+        function iniciarScrollStory(){
+
+        gsap.registerPlugin(ScrollTrigger);
+        const titulo = document.querySelector(".hero-titulo");
+        const descripcion = document.querySelectorAll(".descripcion-animada");
+        const contador = document.querySelector(".hero-contador");
+
+        const esTelefono = window.matchMedia("(max-width: 575px)").matches;
+
+        const tlScroll = gsap.timeline({
+            scrollTrigger:{
+                trigger:"#home",
+                start:"top top",
+                end:"+=120%",
+                scrub:1,
+                pin:true,
+                anticipatePin:1,
+            }
+        });
+
+        tlScroll
+        .to(titulo,{
+        y: esTelefono ? -35 : -78,
+        scale: esTelefono ? 0.65 : 0.5
+        },0)
+
+        .fromTo(descripcion,
+        { opacity:1, y:0 },
+        { opacity:0, y:-20},
+        0)
+
+        .to(contador,{
+        opacity:1,
+        scale:1
+        },0.3);
+
+        }
 
     
 
     // Navbar on scrolling
     $(window).scroll(function () {
-        if ($(this).scrollTop() > 200) {
+        if ($(this).scrollTop() > 700) {
             $('.navbar').fadeIn('slow').css('display', 'flex');
         } else {
             $('.navbar').fadeOut('slow').css('display', 'none');
@@ -92,18 +135,21 @@
     // Modal Video
     $(document).ready(function () {
         var $videoSrc;
-        $('.btn-play').click(function () {
+        $(".btn-play").click(function () {
             $videoSrc = $(this).data("src");
         });
         console.log($videoSrc);
 
-        $('#videoModal').on('shown.bs.modal', function (e) {
-            $("#video").attr('src', $videoSrc + "?autoplay=1&amp;modestbranding=1&amp;showinfo=0");
-        })
+        $("#videoModal").on("shown.bs.modal", function (e) {
+            $("#video").attr(
+                "src",
+                $videoSrc + "?autoplay=1&amp;modestbranding=1&amp;showinfo=0"
+            );
+        });
 
-        $('#videoModal').on('hide.bs.modal', function (e) {
-            $("#video").attr('src', $videoSrc);
-        })
+        $("#videoModal").on("hide.bs.modal", function (e) {
+            $("#video").attr("src", $videoSrc);
+        });
     });
 
 
@@ -173,6 +219,28 @@
             }
         }
     });
-    
+    function iniciarContador() {
+        const fechaBoda = new Date("2026-09-26T15:30:00-06:00");
+
+        function actualizar() {
+            const ahora = new Date();
+            const diferencia = fechaBoda - ahora;
+
+            const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+            const horas = Math.floor(
+                (diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+            );
+            const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+
+            document.getElementById("dias").textContent = dias;
+            document.getElementById("horas").textContent = horas;
+            document.getElementById("minutos").textContent = minutos;
+        }
+
+        actualizar();
+        setInterval(actualizar, 60000);
+    }
+
+    iniciarContador();
 })(jQuery);
 

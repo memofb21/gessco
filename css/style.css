@@ -236,14 +236,10 @@ figure {
   display: flex;
   justify-content: center;
 }
-.btnWhatsapp:hover{
-  border-color: #25D366;
-  color: #075E54;
-}
 .btnWhatsapp {
   font-size: 1.2rem; /* Tamaño base */
   background-color: #ffffff;
-  color: var(--color2);
+  color: #6A4A0F;
   border-radius: 50px;
   display: flex;
   justify-content: center;
@@ -252,7 +248,7 @@ figure {
   text-align: center;
   transition: all 0.3s ease;
   border: 2px solid;
-  border-color: #25D366;
+  border-color: #E3C25C;
   white-space: nowrap;
 }
 
@@ -9351,11 +9347,157 @@ button.bg-dark:focus {
   font-style: italic !important;
 }
 
+.hero-centro{
+position:relative;
+}
+
+
+.hero-contador{
+position:absolute;
+left:50%;
+top:50%;
+transform:translate(-50%, -50%) scale(.7);
+opacity:0;
+
+width:100%;
+text-align:center;
+padding:0 15px;
+}
+
+@media (min-width: 778px) and (max-width: 1092px) {
+ .hero-titulo .text-gradient {
+  display: block;
+ }
+
+ .hero-titulo .descripcion-animada {
+  display: block;
+ }
+}
+
+.btn-ubicacion {
+  margin-top: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  padding: 12px 22px;
+  border: 1.5px solid #E3C25C;
+  background: transparent;
+
+  color: #6A4A0F;
+  border-radius: 40px;
+
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+
+  transition: all 0.3s ease;
+}
+
+/* líneas doradas */
+
+.contador-linea{
+height:2px;
+width:100%;
+max-width:420px;
+margin:12px auto;
+
+background:linear-gradient(
+90deg,
+rgba(255, 255, 255, 0) 0%,
+#6A4A0F 10%,
+#E3C25C 30%,
+#FFFFFF 50%,
+#D1A12A 70%,
+#6A4A0F 90%,
+rgba(255, 255, 255, 0) 100%
+);
+}
+
+/* texto central */
+
+.contador-texto{
+font-family:'Montserrat', sans-serif;
+font-size:36px;
+font-weight:600;
+letter-spacing:2px;
+color:#FFE27A;
+line-height:1;
+
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+align-items:center;
+row-gap:4px;
+column-gap:18px;
+
+white-space:nowrap;
+}
+
+.contador-texto p{
+width:100%;
+margin:0;
+font-size:14px;
+font-weight:400;
+letter-spacing:3px;
+line-height:1;
+}
+
+/* fecha */
+
+.contador-fecha{
+margin-top:10px;
+font-size:19px;
+letter-spacing:4px;
+color:#DBC37F;
+text-transform:uppercase;
+}
+@media (max-width:991px){
+
+.contador-texto{
+font-size: calc(1.3rem + 0.6vw) ;
+}
+
+.contador-texto p{
+font-size:12px;
+}
+
+.contador-fecha{
+font-size:17px;
+letter-spacing:3px;
+}
+
+}
+@media (max-width:575px){
+
+.contador-texto{
+font-size: 1.25rem;
+letter-spacing:1px;
+}
+
+.contador-texto p{
+font-size:11px;
+letter-spacing:2px;
+}
+
+.contador-fecha{
+font-size:15px;
+letter-spacing:2px;
+}
+
+.contador-linea{
+max-width:260px;
+}
+
+}
+.titulo-animado{
+  visibility: hidden;
+}
 .titulo-animado,
 .descripcion-animada {
-  will-change: transform, opacity;
   opacity: 0;
-  visibility: hidden;
+  will-change: transform, opacity;
 }
 
 .text-gradient{
@@ -9364,9 +9506,11 @@ display:inline-block;
 position:relative;
 padding:10px;
 color:white;
+isolation:isolate;
 
 }
 .text-gradient::before{
+  z-index: 2;
 content:attr(data-text);
 position:absolute;
 top:0;
@@ -9378,8 +9522,8 @@ padding:inherit;
 background:linear-gradient(
   130deg,
 #6A4A0F 0%,
-#E3C25C 26%,
-#FFFFFF 37%,
+#E3C25C 30%,
+#FFFFFF 45%,
 #D1A12A 70%,
 #6A4A0F 100%
 );
@@ -9391,7 +9535,7 @@ background-clip: text;
 
 opacity:0;
 /* aparece después de 3s */
-animation:goldFade 2s ease 6.5s forwards;
+animation:goldFade 2s ease 1s forwards;
 
 }
 @keyframes goldFade{
@@ -9409,6 +9553,8 @@ opacity:1;
 .text-gradient::after{
 
 content:attr(data-text);
+z-index: 3;
+pointer-events: none;
 padding:10px;
 position:absolute;
 top:0;
@@ -9430,7 +9576,7 @@ background-position:-60% 0;
 -webkit-background-clip:text;
 -webkit-text-fill-color: transparent;
 background-clip:text;
-
+opacity:1;
 animation:shineMove 7s linear 10s infinite;
 
 }
@@ -9651,19 +9797,17 @@ a.text-dark:hover, a.text-dark:focus {
 .font-secondary {
   font-family: 'Great Vibes', cursive;
 }
-.hero-wrapper{
-height:100vh;
-pointer-events:none;
-}
+
 
 .hero-wrapper{
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:100%;
-z-index:10;
-pointer-events:none;
+  transition:none;
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100vh;
+  z-index:10;
+  pointer-events:none;
 }
 
 #header-carousel{
@@ -9746,6 +9890,7 @@ position:relative;
 }
 
 .carousel-caption {
+  transition:none;
   top: 0;
   left: 0;
   right: 0;

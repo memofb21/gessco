@@ -24,6 +24,13 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    <script>
+    history.scrollRestoration = "manual";
+
+    window.addEventListener("load", function () {
+        window.scrollTo(0, 0);
+    });
+    </script>
 </head>
 
 <body data-spy="scroll" data-target=".navbar" data-offset="51">
@@ -40,7 +47,7 @@
         <!-- Navbar Start -->
         <nav class="navbar fixed-top shadow-sm navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-lg-5">
             <a href="index.html" class="navbar-brand d-block d-lg-none">
-            <h1 class="font-secondary text-white mb-n2">Jessica <span class="text-primary">&</span> Ramón</h1>
+                <h1 class="font-secondary text-white mb-n2">Jessica <span class="text-primary">&</span> Ramón</h1>
             </a>
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
@@ -52,7 +59,7 @@
                     <a href="#gallery" class="nav-item nav-link">Galería</a>
                 </div>
                 <a href="index.html" class="navbar-brand mx-5 d-none d-lg-block">
-                    <h1 class="font-secondary text-white mb-n2" >Jessica <span class="text-primary">&</span> Ramón</h1>
+                    <h1 class="font-secondary text-white mb-n2">Jessica <span class="text-primary">&</span> Ramón</h1>
                 </a>
                 <div class="navbar-nav mr-auto py-0">
                     <a href="#event" class="nav-item nav-link">Evento</a>
@@ -72,16 +79,37 @@
         <div class="hero-wrapper">
             <div class="overlayNegro"></div>
             <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                <div class="p-3" style="max-width: 900px;">
-                    <h1 class="display-1 font-secondary text-gradient mb-md-4 titulo-animado" data-text="Jessica & Ramón">Jessica & Ramón</h1>
-                    <div class="d-inline-block border-top border-bottom border-light py-3 px-4 descripcion-animada">
-                        <h3 class="text-uppercase font-weight-normal text-white m-0" style="letter-spacing: 2px;">Nos casaremos</h3>
-                    </div>
-                    <h3>
-                        <div class="btn btn-lg-square mr-2">		
-                            <img class="img-fluid mr-md-3 position-center descripcion-animada" src="img/ANILLOS.png" alt="">
+                <div class="p-3 hero-centro" style="max-width: 900px;">
+                    <div class="hero-titulo">
+                        <h1 class="display-1 font-secondary text-gradient mb-md-4 titulo-animado" data-text="Jessica & Ramón">
+                            Jessica & Ramón
+                        </h1>
+                        <div class="d-inline-block border-top border-bottom border-light py-3 px-4 descripcion-animada">
+                            <h3 class="text-uppercase font-weight-normal text-white m-0" style="letter-spacing: 2px;">
+                                Nos casaremos
+                            </h3>
                         </div>
-                    </h3>
+                        <h3>
+                            <div class="btn btn-lg-square mr-2">
+                                <img class="img-fluid mr-md-3 position-center descripcion-animada" src="img/ANILLOS.png" alt="">
+                            </div>
+                        </h3>
+                    </div>
+                    <div class="hero-contador">
+                        <div class="contador-linea"></div>
+                        <div class="contador-texto">
+                            <p class="text-white">FALTAN</p>
+                            <span id="dias">000</span> DÍAS
+                            &nbsp;|&nbsp;
+                            <span id="horas">00</span> HORAS
+                            &nbsp;|&nbsp;
+                            <span id="minutos">00</span> MINUTOS
+                        </div>
+                        <div class="contador-linea"></div>
+                        <div class="contador-fecha">
+                            26 SEPTIEMBRE 2026
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -95,31 +123,18 @@
                     </div>
                     <div class="carousel-item position-relative" style="height: 100vh; min-height: 400px;">
                         <img class="position-absolute w-100 h-100" src="img/carousel-2.jpg" style="object-fit: cover;">
-
-
-                        
-                        <!--Titulo ejemplo
-
-
-                        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                            <div class="p-3" style="max-width: 900px;">
-                                <h1 class="display-1 font-secondary text-gradient-shine text-gradient mt-n3 mb-md-4">Jessica & Ramón</h1>
-                                <div class="d-inline-block border-top border-bottom border-light py-3 px-4">
-                                    <h3 class="text-uppercase font-weight-normal text-white m-0" style="letter-spacing: 2px;">Nos casaremos</h3>
-                                </div>
-                                <h3>
-                                    <div class="btn btn-lg-square mr-2">		
-                                        <img class="img-fluid mr-md-3 position-center " src="img/ANILLOS.png" alt="">
-                                    </div>
-                                </h3>
-                            </div>
-                        </div>
-                        
-
-                        Fin titulo ejemplo-->
-
-
-
+                    </div>
+                    <div class="carousel-item position-relative" style="height: 100vh; min-height: 400px;">
+                        <img class="position-absolute w-100 h-100" src="img/story-1.jpg" style="object-fit: cover;">
+                    </div>
+                    <div class="carousel-item position-relative" style="height: 100vh; min-height: 400px;">
+                        <img class="position-absolute w-100 h-100" src="img/story-2.jpg" style="object-fit: cover;">
+                    </div>
+                    <div class="carousel-item position-relative" style="height: 100vh; min-height: 400px;">
+                        <img class="position-absolute w-100 h-100" src="img/story-3.jpg" style="object-fit: cover;">
+                    </div>
+                    <div class="carousel-item position-relative" style="height: 100vh; min-height: 400px;">
+                        <img class="position-absolute w-100 h-100" src="img/story-4.jpg" style="object-fit: cover;">
                     </div>
                 </div>
                 <a class="carousel-control-prev justify-content-start" href="#header-carousel" data-slide="prev">
@@ -244,6 +259,10 @@
                             <h4 class="mb-3">Terraza Montecasino</h4>
                             <p class="mb-2">Calle, San Benito S/N, Lago de Guadalupe, 54760 Cuautitlán Izcalli, Méx.</p>
                             <p class="mb-0">5:00PM - 01:00AM</p>
+                            <a class="btn btn-ubicacion" href="https://maps.app.goo.gl/FJnmE1RK2gacXuoZ9" target="_blank">
+                                <i class="fas fa-map-marker-alt"></i>
+                                Cómo llegar
+                            </a>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -252,6 +271,10 @@
                             <h4 class="mb-3">Iglesia de Santa Rita</h4>
                             <p class="mb-2">C. Jacarandas Mz 55 Lt 4, Bosques de Morelos, 54760 Cuautitlán Izcalli, Méx.</p>
                             <p class="mb-0" id="asistencia">3:30PM</p>
+                            <a class="btn btn-ubicacion" href="https://maps.app.goo.gl/dHKgcHN5rJnqQavv8" target="_blank">
+                                <i class="fas fa-map-marker-alt"></i>
+                                Cómo llegar
+                            </a>
                         </div>
                     </div >
                 </div>
@@ -305,6 +328,7 @@
         <!-- JavaScript Libraries -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/gsap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
         <script src="lib/easing/easing.min.js"></script>
         <script src="lib/waypoints/waypoints.min.js"></script>
