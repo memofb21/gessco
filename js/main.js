@@ -78,7 +78,7 @@
             scrollTrigger:{
                 trigger:"#home",
                 start:"top top",
-                end: esTelefono ? "+=20%" : "+=120%",
+                end: esTelefono ? "+=5%" : "+=120%",
                 scrub:1,
                 pin: esTelefono ? false : true,  // 👈 AQUÍ EL CAMBIO
                 anticipatePin:1,
