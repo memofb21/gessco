@@ -27,7 +27,7 @@
 
                 gsap.set(titulo, { opacity: 0, y: 80, visibility: "visible" });
                 gsap.set(descripcion, { opacity: 0, y: 80 });
-
+                document.body.style.overflow = "hidden";
                 const intro = gsap.timeline()
                     .to(titulo, {
                         opacity: 1,
@@ -62,6 +62,9 @@
                         duration: 1,
                         ease: "power2.inOut"
                     }, "-=0.5")
+                    .call(() => {
+                        document.body.style.overflow = "auto";
+                    })
             }
 
 
