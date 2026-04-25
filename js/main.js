@@ -135,11 +135,24 @@
     
 
     // Navbar on scrolling
+    let navbarVisible = false;
     $(window).scroll(function () {
         if ($(this).scrollTop() > 700) {
-            $('.navbar').fadeIn('slow').css('display', 'flex');
+            if (!navbarVisible) {
+                navbarVisible = true;
+                $('.navbar').css('display', 'flex');
+                requestAnimationFrame(function() {
+                    $('.navbar').addClass('visible');
+                });
+            }
         } else {
-            $('.navbar').fadeOut('slow').css('display', 'none');
+            if (navbarVisible) {
+                navbarVisible = false;
+                $('.navbar').removeClass('visible');
+                setTimeout(function() {
+                    $('.navbar').css('display', 'none');
+                }, 800);
+            }
         }
     });
 
@@ -181,9 +194,15 @@
             }
 
             // Mostrar contador al hacer scroll
-            if (scrollTop > 300) {
-                $('.hero-contador').fadeIn('slow');
+            if (scrollTop > 700) {
+                $('.hero-contador').fadeIn(800);
                 $('.back-to-top-animated').addClass('contador-visible');
+            } else if (scrollTop < 600) {
+                // Ocultar contador cuando regresa a la parte inicial (con hysteresis)
+                $('.hero-contador').fadeOut(800);
+                $('.back-to-top-animated').removeClass('contador-visible');
+                clearTimeout(scrollTimeout); // Cancelar el timeout de inactividad
+                return; // No ejecutar el timeout de inactividad
             }
 
             // Limpiar timeout anterior
@@ -191,7 +210,7 @@
 
             // Ocultar contador después de 3 segundos de inactividad
             scrollTimeout = setTimeout(function() {
-                $('.hero-contador').fadeOut('slow');
+                $('.hero-contador').fadeOut(800);
                 $('.back-to-top-animated').removeClass('contador-visible');
             }, 3000);
         }
