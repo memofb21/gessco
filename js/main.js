@@ -24,7 +24,8 @@
             function iniciarAnimaciones() {
                 const titulo = document.querySelectorAll(".titulo-animado");
                 const descripcion = document.querySelectorAll(".descripcion-animada");
-
+                const contador = document.querySelector(".hero-contador");
+                const esTelefono = window.matchMedia("(max-width: 575px)").matches;
                 gsap.set(titulo, { opacity: 0, y: 80, visibility: "visible" });
                 gsap.set(descripcion, { opacity: 0, y: 80 });
                 document.body.style.overflow = "hidden";
@@ -35,7 +36,7 @@
                         ease: "power2.out"
                     })
                     .to(titulo, {
-                        y: 0,
+                        y: esTelefono ? -160 : 0,
                         duration: 1.2,
                         ease: "power2.out"
                     })
@@ -57,14 +58,42 @@
                         },
                         "-=3.1"
                     )
-                    .to(descripcion, {
-                        opacity: 1,
-                        duration: 1,
-                        ease: "power2.inOut"
-                    }, "-=0.5")
-                    .call(() => {
-                        document.body.style.overflow = "auto";
-                    })
+                    // Tweens diferentes según dispositivo
+                    if (esTelefono) {
+                        // Móvil: fromTo con immediateRender para posicion inicial
+                        intro.fromTo(descripcion, 
+                            { opacity: 0, y: -160 }, 
+                            { opacity: 1, y: -160, duration: 1, ease: "power2.inOut", immediateRender: true }, 
+                            "-=0.5"
+                        )
+                        // Esperar 2 segundos de reposo
+                        .to({}, { duration: 2 })
+                        // Desaparecer descripción en 1 segundo
+                        .to(descripcion, {
+                            opacity: 0,
+                            duration: 1.5,
+                            ease: "power2.inOut"
+                        })
+                        // Aparecer contador en 1 segundo
+                        .fromTo(contador, 
+                            { opacity: 0, y: -150 }, 
+                            { opacity: 1, y: -150, duration: 2, ease: "power2.out", immediateRender: true }, 
+                            "-=0.3"
+                        )
+                        .call(() => {
+                            document.body.style.overflow = "auto";
+                        });
+                    } else {
+                        // Desktop: to normal
+                        intro.to(descripcion, {
+                            opacity: 1,
+                            y: 0,
+                            duration: 1,
+                            ease: "power2.inOut"
+                        }, "-=0.5").call(() => {
+                            document.body.style.overflow = "auto";
+                        });
+                    }
             }
 
 
@@ -76,6 +105,11 @@
         const contador = document.querySelector(".hero-contador");
 
         const esTelefono = window.matchMedia("(max-width: 575px)").matches;
+        
+        // En móvil no usar ScrollTrigger, ya está todo en iniciarAnimaciones
+        if (esTelefono) {
+            return;
+        }
 
         const tlScroll = gsap.timeline({
             scrollTrigger:{
