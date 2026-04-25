@@ -9493,9 +9493,10 @@ display:none;
 }
 
 .contador-texto{
-font-size: 1.2rem;
+font-size: 1rem;
 letter-spacing:1px;
 column-gap: 8px;
+white-space: nowrap;
 }
 
 .contador-texto p{
