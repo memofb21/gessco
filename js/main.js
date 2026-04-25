@@ -25,7 +25,7 @@
                 const titulo = document.querySelectorAll(".titulo-animado");
                 const descripcion = document.querySelectorAll(".descripcion-animada");
                 const contador = document.querySelector(".hero-contador");
-                const esTelefono = window.matchMedia("(max-width: 575px)").matches;
+                const esTelefono = window.matchMedia("(max-width: 767px)").matches;
                 gsap.set(titulo, { opacity: 0, y: 80, visibility: "visible" });
                 gsap.set(descripcion, { opacity: 0, y: 80 });
                 document.body.style.overflow = "hidden";
@@ -61,24 +61,16 @@
                     // Tweens diferentes según dispositivo
                     if (esTelefono) {
                         // Móvil: fromTo con immediateRender para posicion inicial
-                        intro.fromTo(descripcion, 
-                            { opacity: 0, y: -160 }, 
-                            { opacity: 1, y: -160, duration: 1, ease: "power2.inOut", immediateRender: true }, 
+                        intro.fromTo(descripcion,
+                            { opacity: 0, y: -170 },
+                            { opacity: 1, y: -170, duration: 1, ease: "power2.inOut", immediateRender: true },
                             "-=0.5"
                         )
-                        // Esperar 2 segundos de reposo
-                        .to({}, { duration: 2 })
-                        // Desaparecer descripción en 1 segundo
-                        .to(descripcion, {
-                            opacity: 0,
-                            duration: 1.5,
-                            ease: "power2.inOut"
-                        })
-                        // Aparecer contador en 1 segundo
-                        .fromTo(contador, 
-                            { opacity: 0, y: -150 }, 
-                            { opacity: 1, y: -150, duration: 2, ease: "power2.out", immediateRender: true }, 
-                            "-=0.3"
+                        // Animación inicial del contador: deslizar desde abajo + opacidad
+                        .fromTo(contador,
+                            { opacity: 0, y: 100 },
+                            { opacity: 1, y: 0, duration: 1, ease: "power2.out" },
+                            "-=0.5"
                         )
                         .call(() => {
                             document.body.style.overflow = "auto";
@@ -104,7 +96,7 @@
         const descripcion = document.querySelectorAll(".descripcion-animada");
         const contador = document.querySelector(".hero-contador");
 
-        const esTelefono = window.matchMedia("(max-width: 575px)").matches;
+        const esTelefono = window.matchMedia("(max-width: 767px)").matches;
         
         // En móvil no usar ScrollTrigger, ya está todo en iniciarAnimaciones
         if (esTelefono) {
@@ -148,6 +140,60 @@
             $('.navbar').fadeIn('slow').css('display', 'flex');
         } else {
             $('.navbar').fadeOut('slow').css('display', 'none');
+        }
+    });
+
+    // Contador on scrolling (solo móvil)
+    let scrollTimeout;
+    let contadorPinned = false;
+    let pinnedTop = 0;
+    $(window).scroll(function () {
+        const esTelefono = window.matchMedia("(max-width: 767px)").matches;
+        if (esTelefono) {
+            const scrollTop = $(this).scrollTop();
+            const windowHeight = $(window).height();
+            const footerElement = $('.container-fluid.bg-dark.text-white').last();
+            const footerHeight = footerElement.length ? footerElement.outerHeight() : 0;
+            const footerOffset = footerElement.length ? footerElement.offset().top : $(document).height();
+            const distanceToFooter = footerOffset - (scrollTop + windowHeight);
+            const contadorHeight = $('.hero-contador').outerHeight() || 150;
+
+            // Si el footer es visible y el contador no está fijado, fijarlo en posición absolute
+            if (distanceToFooter < 0 && !contadorPinned) {
+                contadorPinned = true;
+                // Fijar el contador a 50px encima del footer (posición constante)
+                pinnedTop = footerOffset - contadorHeight - 0;
+                $('.hero-contador').css({
+                    'position': 'absolute',
+                    'top': pinnedTop + 'px',
+                    'bottom': 'auto',
+                    'z-index': 10001
+                });
+            } else if (distanceToFooter >= 0 && contadorPinned) {
+                // Si el footer ya no es visible, volver a position fixed
+                contadorPinned = false;
+                $('.hero-contador').css({
+                    'position': 'fixed',
+                    'bottom': '0',
+                    'top': 'auto',
+                    'z-index': 9999
+                });
+            }
+
+            // Mostrar contador al hacer scroll
+            if (scrollTop > 300) {
+                $('.hero-contador').fadeIn('slow');
+                $('.back-to-top-animated').addClass('contador-visible');
+            }
+
+            // Limpiar timeout anterior
+            clearTimeout(scrollTimeout);
+
+            // Ocultar contador después de 3 segundos de inactividad
+            scrollTimeout = setTimeout(function() {
+                $('.hero-contador').fadeOut('slow');
+                $('.back-to-top-animated').removeClass('contador-visible');
+            }, 3000);
         }
     });
 
