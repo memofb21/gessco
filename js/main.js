@@ -28,43 +28,62 @@
                 const esTelefono = window.matchMedia("(max-width: 767px)").matches;
                 gsap.set(titulo, { opacity: 0, y: 80, visibility: "visible" });
                 gsap.set(descripcion, { opacity: 0, y: 80 });
+                // En móvil: inyectar estilo CSS dinámico para ocultar el dorado inicialmente
+                // En PC: no modificar, dejar que CSS lo controle
+                let mobileGoldStyle = null;
+                if (esTelefono) {
+                    mobileGoldStyle = document.createElement('style');
+                    mobileGoldStyle.id = 'mobile-gold-override';
+                    mobileGoldStyle.textContent = '.text-gradient::before { opacity: 0 !important; animation: none !important; }';
+                    document.head.appendChild(mobileGoldStyle);
+                }
                 document.body.style.overflow = "hidden";
                 const intro = gsap.timeline()
                     .to(titulo, {
                         opacity: 1,
-                        duration: 0.8,
+                        duration: 1.8,
+                        delay: .5,
                         ease: "power2.out"
                     })
                     .to(titulo, {
                         y: esTelefono ? -160 : 0,
-                        duration: 1.2,
+                        duration: esTelefono ? 1.8 : 1.4,
                         ease: "power2.out"
-                    })
+                    }, "-=0.5")
                     .to(
                         ".overlayNegro",
                         {
                             opacity: 0,
-                            duration: 1,
+                            duration: 1.4,
                             ease: "power1.out"
                         },
-                        "-=1.2"
+                        "-=1.7"
                     )
-                    .to(
-                        descripcion,
-                        {
-                            opacity: 0,
-                            duration: 1.5,
-                            ease: "power3.inOut"
-                        },
-                        "-=3.1"
-                    )
+                    .to(descripcion, {
+                        opacity: 0,
+                        duration: 1.5,
+                        ease: "power3.inOut"
+                    },
+                    "-=3.8"
+                    );
+
+                // Solo en móviles: mostrar el gradiente dorado al finalizar el movimiento del título
+                if (esTelefono) {
+                    intro.call(() => {
+                        const style = document.getElementById('mobile-gold-override');
+                        if (style) {
+                            // Cambiar a opacity: 1 con transición suave
+                            style.textContent = '.text-gradient::before { opacity: 1 !important; animation: none !important; transition: opacity 0.8s ease; }';
+                        }
+                    }, null, "-=1.5");
+                }
                     // Tweens diferentes según dispositivo
                     if (esTelefono) {
                         // Móvil: fromTo con immediateRender para posicion inicial
                         intro.fromTo(descripcion,
                             { opacity: 0, y: -170 },
                             { opacity: 1, y: -170, duration: 1, ease: "power2.inOut", immediateRender: true },
-                            "-=0.5"
+                            "-=0"
                         )
                         // Animación inicial del contador: deslizar desde abajo + opacidad
                         .fromTo(contador,
