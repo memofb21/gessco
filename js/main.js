@@ -427,7 +427,7 @@
         }
     });
 
-    introGate.addEventListener("pointerdown", () => {
+    introGate.addEventListener("click", () => {
 
         bgMusic.volume = 0.3;
 
