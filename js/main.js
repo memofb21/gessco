@@ -10,11 +10,8 @@
 
             setTimeout(() => {
                 loader.style.display = "none";
-                contenido.style.opacity = "1";
-                document.body.classList.remove("no-scroll");
 
-                iniciarAnimaciones();
-                iniciarScrollStory();
+                introGate.classList.add("active");
             }, 600);
         }, 5000);
     });
@@ -201,6 +198,8 @@
                     'bottom': 'auto',
                     'z-index': 10001
                 });
+                // Bajar el botón a posición nativa cuando el contador está anclado
+                $('.music-toggle-animated').removeClass('contador-visible');
             } else if (distanceToFooter >= 0 && contadorPinned) {
                 // Si el footer ya no es visible, volver a position fixed
                 contadorPinned = false;
@@ -210,18 +209,25 @@
                     'top': 'auto',
                     'z-index': 9999
                 });
+                // Subir el botón cuando el contador deja de estar anclado
+                $('.music-toggle-animated').addClass('contador-visible');
             }
 
             // Mostrar contador al hacer scroll
             if (scrollTop > 700) {
                 $('.hero-contador').fadeIn(800);
-                $('.back-to-top-animated').addClass('contador-visible');
+                $('.music-toggle').addClass('visible'); // Aparece con animación suave
+                // Solo subir el botón si el contador NO está anclado al footer
+                if (!contadorPinned) {
+                    $('.music-toggle-animated').addClass('contador-visible');
+                }
             } else if (scrollTop < 600) {
                 // Ocultar contador cuando regresa a la parte inicial (con hysteresis)
                 $('.hero-contador').fadeOut(800);
-                $('.back-to-top-animated').removeClass('contador-visible');
-                clearTimeout(scrollTimeout); // Cancelar el timeout de inactividad
-                return; // No ejecutar el timeout de inactividad
+                $('.music-toggle').removeClass('visible'); // Desaparece con animación suave
+                $('.music-toggle-animated').removeClass('contador-visible'); // Bajar botón
+                clearTimeout(scrollTimeout);
+                return;
             }
 
             // Limpiar timeout anterior
@@ -230,7 +236,7 @@
             // Ocultar contador después de 3 segundos de inactividad
             scrollTimeout = setTimeout(function() {
                 $('.hero-contador').fadeOut(800);
-                $('.back-to-top-animated').removeClass('contador-visible');
+                $('.music-toggle-animated').removeClass('contador-visible'); // Bajar botón cuando contador desaparece
             }, 3000);
         }
     });
@@ -297,12 +303,14 @@
     });
     
     
-    // Back to top button
+    // Back to top button & Music button visibility (desktop)
     $(window).scroll(function () {
         if ($(this).scrollTop() > 200) {
             $('.back-to-top').fadeIn('slow');
+            $('.music-toggle').addClass('visible');
         } else {
             $('.back-to-top').fadeOut('slow');
+            $('.music-toggle').removeClass('visible');
         }
     });
     $('.back-to-top').click(function () {
@@ -361,6 +369,95 @@
         actualizar();
         setInterval(actualizar, 60000);
     }
+
+    const introGate = document.getElementById("intro-gate");
+    const introText = document.getElementById("intro-text");
+
+    const esTelefono = window.matchMedia("(max-width: 767px)").matches;
+    introText.textContent = esTelefono
+        ? "Nuestra historia comienza aquí"
+        : "Nuestra historia comienza aquí";
+
+    // Music Control
+    const bgMusic = document.getElementById('bg-music');
+    const musicToggle = document.getElementById('music-toggle');
+    const musicIcon = musicToggle.querySelector('.music-icon');
+    let isMuted = false;
+    let isPlaying = false;
+
+    // Configuración inicial
+    bgMusic.volume = 0.3;
+    musicToggle.classList.remove('muted');
+    musicIcon.classList.remove('fa-volume-mute', 'fa-volume-off');
+    musicIcon.classList.add('fa-volume-up');
+
+    
+    bgMusic.addEventListener('ended', () => {
+        bgMusic.currentTime = 0;
+        bgMusic.volume = 0.3;
+        bgMusic.play();
+    });
+
+    // Music toggle button
+    musicToggle.addEventListener('click', () => {
+        if (!isPlaying) {
+            // If music was blocked by autoplay, start it on first click
+            bgMusic.play().then(() => {
+                isPlaying = true;
+                isMuted = false;
+                musicToggle.classList.remove('muted');
+                musicIcon.classList.remove('fa-volume-off', 'fa-volume-mute');
+                musicIcon.classList.add('fa-volume-up');
+            }).catch(error => {
+                console.log('Error playing music:', error);
+            });
+        } else {
+            isMuted = !isMuted;
+            if (isMuted) {
+                bgMusic.volume = 0;
+                musicToggle.classList.add('muted');
+                musicIcon.classList.remove('fa-volume-up');
+                musicIcon.classList.add('fa-volume-mute');
+            } else {
+                bgMusic.volume = 0.3;
+                musicToggle.classList.remove('muted');
+                musicIcon.classList.remove('fa-volume-mute');
+                musicIcon.classList.add('fa-volume-up');
+            }
+        }
+    });
+
+    introGate.addEventListener("pointerdown", () => {
+
+        bgMusic.volume = 0.3;
+
+        bgMusic.play()
+        .then(() => {
+
+            isPlaying = true;
+
+            console.log("Music playing");
+
+        })
+        .catch(err => console.log(err));
+
+        introGate.classList.remove("active");
+
+        setTimeout(() => {
+
+            introGate.style.display = "none";
+
+            contenido.style.opacity = "1";
+
+            document.body.classList.remove("no-scroll");
+
+            iniciarAnimaciones();
+
+            iniciarScrollStory();
+
+        }, 1000);
+
+    }, { once:true });
 
     iniciarContador();
 })(jQuery);

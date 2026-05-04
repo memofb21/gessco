@@ -41,6 +41,23 @@
     </div>
     <!--Fin Loader-->
 
+    <!-- Pantalla de inicio -->
+    <div id="intro-gate">
+
+        <div class="intro-gate-content">
+
+            <div class="touch-animation">
+                <div class="touch-circle"></div>
+                <i class="fas fa-hand-pointer"></i>
+            </div>
+
+            <p id="intro-text">
+                Nuestra historia comienza aquí
+            </p>
+
+        </div>
+
+    </div>
 
     <!--Página Web-->
     <div id="contenido">
@@ -298,7 +315,7 @@
     <div class="container-fluid py-5" id="event" style="margin-bottom: 150px;">
             <div class="container py-5">
                 <div class="section-title position-relative text-center">
-                    <h5 class="text-uppercase text-primary nos1" style="letter-spacing: 3px;">¿Nos acompañas en el día más feliz de nuestras vidas?<br>Confirma tu asistencia y los que se unirán a ti</h6>
+                    <h5 class="text-uppercase text-primary nos1" style="letter-spacing: 3px;">¿Nos acompañas en el día más feliz de nuestras vidas?<br>Confirma tu asistencia y los que se unirán a ti</h5>
                     <h1 class="font-secondary display-4">Vía Whatsapp</h1>
                     <i class="far fa-heart text-dark"></i>
                 </div>
@@ -334,8 +351,15 @@
         <!-- Scroll to Bottom -->
         <i class="fa fa-2x fa-angle-down text-white scroll-to-bottom"></i>
 
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-outline-primary btn-lg-square back-to-top back-to-top-animated"><i class="fa fa-angle-double-up"></i></a>
+        <!-- Music Button -->
+        <button id="music-toggle" class="music-toggle music-toggle-animated">
+            <i class="fa fa-volume-up music-icon"></i>
+        </button>
+
+        <!-- Background Music -->
+        <audio id="bg-music" loop playsinline preload="auto">
+    <source src="music/Fondo.mp3" type="audio/mpeg">
+</audio>
 
 </div>
         <!-- JavaScript Libraries -->

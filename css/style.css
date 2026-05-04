@@ -72,6 +72,117 @@ body.no-scroll {
   height: auto;
 }
 
+#intro-gate{
+    position: fixed;
+    inset: 0;
+
+    background: #000;
+
+    z-index: 999999;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:
+    opacity 1s ease,
+    visibility 1s ease;
+    -webkit-tap-highlight-color: transparent;
+    cursor:pointer;
+}
+
+#intro-gate.active{
+    opacity:1;
+    visibility:visible;
+}
+
+.intro-gate-content{
+    text-align:center;
+    color:white;
+}
+
+#intro-text{
+    margin-top:30px;
+
+    font-size:13px;
+    letter-spacing:4px;
+    text-transform:uppercase;
+
+    opacity:.85;
+
+    font-family:'Montserrat', sans-serif;
+}
+
+.touch-animation{
+    position:relative;
+
+    width:90px;
+    height:90px;
+
+    margin:auto;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.touch-animation i{
+    font-size:34px;
+
+    color:white;
+
+    z-index:2;
+
+    animation: handFloat 2s ease-in-out infinite;
+}
+
+.touch-circle{
+    position:absolute;
+
+    width:90px;
+    height:90px;
+
+    border:1px solid rgba(255,255,255,.35);
+    border-radius:50%;
+
+    animation: pulseRing 2s infinite;
+}
+
+@keyframes pulseRing{
+
+    0%{
+        transform:scale(.7);
+        opacity:0;
+    }
+
+    50%{
+        opacity:1;
+    }
+
+    100%{
+        transform:scale(1.3);
+        opacity:0;
+    }
+}
+
+@keyframes handFloat{
+
+    0%{
+        transform:translateY(0px);
+    }
+
+    50%{
+        transform:translateY(-6px);
+    }
+
+    100%{
+        transform:translateY(0px);
+    }
+}
+
 /* ocultar contenido al inicio */
 #contenido {
   opacity: 0;
@@ -103,6 +214,9 @@ body {
   line-height: 1.5;
   color: #818491;
   text-align: left;
+  background-color: #000;
+}
+#contenido{
   background-color: #FFFFFF;
 }
 
@@ -250,6 +364,13 @@ figure {
   border: 2px solid;
   border-color: #E3C25C;
   white-space: nowrap;
+  outline: none; /* Eliminar borde azul al hacer click */
+}
+
+.btnWhatsapp:focus,
+.btnWhatsapp:active {
+  outline: none;
+  box-shadow: none;
 }
 
 /* Media queries para diferentes tamaños de pantalla */
@@ -9945,18 +10066,90 @@ position:relative;
   animation: action 1s infinite alternate;
 }
 
+/* Music Button Styles for Desktop */
+.music-toggle {
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 9998;
+  transition: all 0.3s ease, opacity 0.8s ease, visibility 0.8s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  opacity: 0;
+  outline: none; /* Eliminar borde azul al hacer click */
+}
+
+.music-toggle:focus {
+  outline: none;
+}
+
+.music-toggle.muted {
+  background: #D4A853;
+  color: #3D2314;
+}
+
+.music-toggle.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
 @media (max-width: 767px) {
-  .back-to-top-animated {
+  /* Music Button Styles */
+  .music-toggle {
     position: fixed;
     right: 15px;
     bottom: 30px;
-    z-index: 10000;
-    transition: bottom 0.5s ease;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 9998;
+    transition: all 0.3s ease, opacity 0.8s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden; /* Oculto inicialmente */
+    opacity: 0;
+    transition: all 0.3s ease, opacity 0.8s ease, visibility 0.8s ease;
+    outline: none; /* Eliminar borde azul al hacer click */
   }
 
-  .back-to-top-animated.contador-visible {
+  .music-toggle:focus {
+    outline: none;
+  }
+
+  .music-toggle.muted {
+    background: #D4A853;
+    color: #3D2314;
+  }
+
+  .music-toggle-animated {
+    transition: bottom 0.5s ease, opacity 0.8s ease, visibility 0.8s ease;
+  }
+
+  .music-toggle-animated.contador-visible {
     bottom: 150px;
   }
+
+  .music-toggle.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
 }
 
 @keyframes action {
