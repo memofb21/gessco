@@ -1,7 +1,21 @@
 (function ($) {
+    // ==========================================
+    // FLAG DE DESARROLLO - Cambiar a false para producción
+    const DEV_MODE = false;
+    // ==========================================
+
     $(document).ready(function () {
         const loader = document.getElementById("loader");
         const contenido = document.getElementById("contenido");
+
+        // Bypass loader y pantalla de click en modo desarrollo
+        if (DEV_MODE) {
+            loader.style.display = "none";
+            contenido.style.opacity = "1";
+            document.body.classList.remove("no-scroll");
+            // Las funciones se ejecutarán más abajo después de definirlas
+            return;
+        }
 
         document.body.classList.add("no-scroll");
 
@@ -458,6 +472,12 @@
         }, 1000);
 
     }, { once:true });
+
+    // Ejecutar animaciones inmediatamente en modo desarrollo
+    if (DEV_MODE) {
+        iniciarAnimaciones();
+        iniciarScrollStory();
+    }
 
     iniciarContador();
 })(jQuery);
