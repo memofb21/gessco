@@ -10468,7 +10468,7 @@ position:relative;
 }
 
 .Copyright .fila1 img {
-  width: clamp(120px, 11vw, 160px);
+  width: clamp(110px, 10vw, 130px);
 }
 
 /* ===== CONTENEDORES ===== */
@@ -10601,7 +10601,7 @@ position:relative;
 /* ===== SOLO PC ===== */
 @media (min-width: 992px) {
   .Copyright .fila1 img{
-    margin-bottom: 50px;
+    margin-bottom: 90px;
   }
   .Copyright .fila3{
     margin-right: 120px;
