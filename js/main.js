@@ -1,7 +1,7 @@
 (function ($) {
     // ==========================================
     // FLAG DE DESARROLLO - Cambiar a false para producción
-    const DEV_MODE = false;
+    const DEV_MODE = true;
     // ==========================================
 
     $(document).ready(function () {
