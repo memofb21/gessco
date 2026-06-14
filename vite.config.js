@@ -22,5 +22,8 @@ export default defineConfig({
         main: './index.html'
       }
     }
-  }
+  },
+  server: {
+    allowedHosts: true
+  }  
 })

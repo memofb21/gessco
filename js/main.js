@@ -1,20 +1,34 @@
+
+
 (function ($) {
+
+    const esTelefono = window.matchMedia("(max-width: 767px)").matches;
+    const esTablet = window.matchMedia("(min-width: 768px) and (max-width: 991.98px)").matches;
     // ==========================================
     // FLAG DE DESARROLLO - Cambiar a false para producción
     const DEV_MODE = false;
     // ==========================================
 
     $(document).ready(function () {
-        const loader = document.getElementById("loader");
-        const contenido = document.getElementById("contenido");
+    const loader = document.getElementById("loader");
+    const contenido = document.getElementById("contenido");
+
+        gsap.registerPlugin(ScrollTrigger);
 
         // Bypass loader y pantalla de click en modo desarrollo
         if (DEV_MODE) {
             loader.style.display = "none";
             contenido.style.opacity = "1";
             document.body.classList.remove("no-scroll");
-            // Las funciones se ejecutarán más abajo después de definirlas
-            return;
+            
+            // DEV: esperar a load para calcular layout real
+            window.addEventListener("load", () => {
+            iniciarAnimaciones();
+            iniciarScrollStory();
+            iniciarLluviaSobres();
+        });
+        return;
+
         }
 
         document.body.classList.add("no-scroll");
@@ -24,10 +38,10 @@
 
             setTimeout(() => {
                 loader.style.display = "none";
-
                 introGate.classList.add("active");
             }, 600);
-        }, 5000);
+        }, 5000)
+
     });
 
 
@@ -36,7 +50,6 @@
                 const titulo = document.querySelectorAll(".titulo-animado");
                 const descripcion = document.querySelectorAll(".descripcion-animada");
                 const contador = document.querySelector(".hero-contador");
-                const esTelefono = window.matchMedia("(max-width: 767px)").matches;
                 gsap.set(titulo, { opacity: 0, y: 80, visibility: "visible" });
                 gsap.set(descripcion, { opacity: 0, y: 80 });
                 // En móvil: inyectar estilo CSS dinámico para ocultar el dorado inicialmente
@@ -116,17 +129,17 @@
                             document.body.style.overflow = "auto";
                         });
                     }
+
             }
 
 
         function iniciarScrollStory(){
 
-        gsap.registerPlugin(ScrollTrigger);
         const titulo = document.querySelector(".hero-titulo");
         const descripcion = document.querySelectorAll(".descripcion-animada");
         const contador = document.querySelector(".hero-contador");
 
-        const esTelefono = window.matchMedia("(max-width: 767px)").matches;
+        
         
         // En móvil no usar ScrollTrigger, ya está todo en iniciarAnimaciones
         if (esTelefono) {
@@ -162,7 +175,111 @@
 
         }
 
-    
+    function iniciarLluviaSobres() {
+
+    const envelopes = gsap.utils.toArray(".envelope");
+
+    if (!envelopes.length) return;
+
+    let rainActive = false;
+
+    function rain(el) {
+
+        if (!rainActive) return;
+
+        gsap.killTweensOf(el);
+
+        gsap.set(el, {
+            x: gsap.utils.random(0, window.innerWidth - 100),
+            y: -300,
+            opacity: 1
+        });
+
+        gsap.to(el, {
+            y: window.innerHeight + 400,
+
+            x: `+=${gsap.utils.random(-150, 150)}`,
+
+            duration: gsap.utils.random(2.5, 6),
+
+            ease: "none",
+
+            onComplete() {
+
+                if (rainActive) {
+                    rain(el);
+                }
+
+            }
+        });
+    }
+
+    ScrollTrigger.create({
+
+        trigger: "#Sobres",
+
+        start: "top 80%",
+
+        end: "bottom top",
+
+        onEnter() {
+
+            rainActive = true;
+
+            envelopes.forEach((el, index) => {
+
+                gsap.delayedCall(index * 0.6, () => {
+                    rain(el);
+                });
+
+            });
+
+            setTimeout(() => {
+
+                rainActive = false;
+
+            }, 7000);
+
+        },
+
+        onEnterBack() {
+
+            rainActive = true;
+
+            envelopes.forEach((el, index) => {
+
+                gsap.delayedCall(index * 0.5, () => {
+
+                    rain(el);
+
+                });
+
+            });
+
+        },
+
+        onLeave() {
+
+            rainActive = false;
+
+            envelopes.forEach(el => gsap.killTweensOf(el));
+
+        },
+
+        onLeaveBack() {
+
+            rainActive = false;
+
+            envelopes.forEach(el => gsap.killTweensOf(el));
+
+        }
+
+    });
+
+}
+
+
+
 
     // Navbar on scrolling
     let navbarVisible = false;
@@ -191,7 +308,7 @@
     let contadorPinned = false;
     let pinnedTop = 0;
     $(window).scroll(function () {
-        const esTelefono = window.matchMedia("(max-width: 767px)").matches;
+        
         if (esTelefono) {
             const scrollTop = $(this).scrollTop();
             const windowHeight = $(window).height();
@@ -273,27 +390,6 @@
     });
 
 
-    // Modal Video
-    $(document).ready(function () {
-        var $videoSrc;
-        $(".btn-play").click(function () {
-            $videoSrc = $(this).data("src");
-        });
-        console.log($videoSrc);
-
-        $("#videoModal").on("shown.bs.modal", function (e) {
-            $("#video").attr(
-                "src",
-                $videoSrc + "?autoplay=1&amp;modestbranding=1&amp;showinfo=0"
-            );
-        });
-
-        $("#videoModal").on("hide.bs.modal", function (e) {
-            $("#video").attr("src", $videoSrc);
-        });
-    });
-
-
     // Scroll to Bottom
     $(window).scroll(function () {
         if ($(this).scrollTop() > 100) {
@@ -315,6 +411,8 @@
 
         portfolioIsotope.isotope({filter: $(this).data('filter')});
     });
+    
+ 
     
     
     // Back to top button & Music button visibility (desktop)
@@ -387,7 +485,7 @@
     const introGate = document.getElementById("intro-gate");
     const introText = document.getElementById("intro-text");
 
-    const esTelefono = window.matchMedia("(max-width: 767px)").matches;
+    
     introText.textContent = esTelefono
         ? "Nuestra historia comienza aquí"
         : "Nuestra historia comienza aquí";
@@ -469,16 +567,16 @@
 
             iniciarScrollStory();
 
+            iniciarLluviaSobres();
+
+
         }, 1000);
 
     }, { once:true });
 
-    // Ejecutar animaciones inmediatamente en modo desarrollo
-    if (DEV_MODE) {
-        iniciarAnimaciones();
-        iniciarScrollStory();
-    }
 
     iniciarContador();
 })(jQuery);
+
+
 
