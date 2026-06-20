@@ -6,7 +6,7 @@
     const esTablet = window.matchMedia("(min-width: 768px) and (max-width: 991.98px)").matches;
     // ==========================================
     // FLAG DE DESARROLLO - Cambiar a false para producción
-    const DEV_MODE = true;
+    const DEV_MODE = false;
     // ==========================================
 
     $(document).ready(function () {
