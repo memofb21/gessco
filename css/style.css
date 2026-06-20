@@ -347,16 +347,17 @@ figure {
   margin: 0 0 1rem;
 }
 .botonConfirmar{
+  position: relative;
   display: flex;
   justify-content: center;
 }
 .btnWhatsapp {
-  z-index: 1000;
   font-size: 1.2rem; /* Tamaño base */
   background-color: #ffffff;
   color: #6A4A0F;
   border-radius: 50px;
   display: flex;
+  z-index: 200 !important;
   justify-content: center;
   align-items: center;
   padding: 10px 20px;
@@ -6227,7 +6228,7 @@ object-fit:cover;
   right: 15%;
   bottom: 20px;
   left: 15%;
-  z-index: 10;
+  z-index: 100;
   padding-top: 20px;
   padding-bottom: 20px;
   color: #fff;
@@ -9480,7 +9481,7 @@ left:50%;
 top:50%;
 transform:translate(-50%, -50%) scale(.7);
 opacity:0;
-
+z-index: 1;
 width:100%;
 text-align:center;
 padding:0 0px;
@@ -9609,7 +9610,7 @@ top:auto;
 transform:none;
 background:rgba(0, 0, 0, 0.7);
 padding:15px 10px;
-z-index:9999;
+z-index: 9999;
 width:100%;
 display:none;
 }
@@ -10017,7 +10018,7 @@ a.text-dark:hover, a.text-dark:focus {
   left:0;
   width:100%;
   height:100vh;
-  z-index:10;
+  z-index:300;
   pointer-events:none;
 }
 
@@ -10642,7 +10643,7 @@ position:relative;
     position: absolute;
     inset: 0;
     pointer-events: none;
-    z-index: 100;
+    z-index: 10;
 }
 
 .envelope{
